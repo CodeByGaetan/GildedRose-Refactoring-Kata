@@ -1,0 +1,22 @@
+import { Item } from "./gilded-rose";
+import { AgedBrie } from "./IdentifiedItems/AgedBrie";
+import { Backstage } from "./IdentifiedItems/Backstage";
+import { IdentifiedItem } from "./IdentifiedItems/IdentifiedItem";
+import { OrdinaryItem } from "./IdentifiedItems/OrdinaryItem";
+import { Sulfuras } from "./IdentifiedItems/Sulfuras";
+import { ItemNames } from "./ItemNames";
+
+export class IdentifiedItemFactory {
+  static create(item: Item): IdentifiedItem {
+    switch (item.name) {
+      case ItemNames.AgedBrie:
+        return new AgedBrie(item);
+      case ItemNames.Sulfuras:
+        return new Sulfuras(item);
+      case ItemNames.Backstage:
+        return new Backstage(item);
+      default:
+        return new OrdinaryItem(item);
+    }
+  }
+}

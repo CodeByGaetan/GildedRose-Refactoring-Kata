@@ -1,5 +1,5 @@
 import { GildedRose, Item } from "@/gilded-rose";
-import { ItemNames } from "@/item-names";
+import { ItemNames } from "@/ItemNames";
 
 describe("Gilded Rose", () => {
   // "The Quality of an item is never negative"
@@ -49,7 +49,7 @@ describe("Gilded Rose", () => {
   });
 
   it("should not increase quality above 50 when sellIn below 0 on Aged Brie", () => {
-    const gildedRose = new GildedRose([new Item(ItemNames.AgedBrie, -1, 50)]);
+    const gildedRose = new GildedRose([new Item(ItemNames.AgedBrie, -1, 49)]);
     const items = gildedRose.updateQuality();
     expect(items[0].name).toBe(ItemNames.AgedBrie);
     expect(items[0].sellIn).toBe(-2);
