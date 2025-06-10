@@ -1,8 +1,15 @@
 import { GildedRose, Item } from "@/gilded-rose";
+import { IdentifiedItemFactory } from "@/IdentifiedItemFactory";
+import { AgedBrie } from "@/IdentifiedItems/AgedBrie";
+import { Backstage } from "@/IdentifiedItems/Backstage";
+import { Conjured } from "@/IdentifiedItems/Conjured";
+import { OrdinaryItem } from "@/IdentifiedItems/OrdinaryItem";
+import { Sulfuras } from "@/IdentifiedItems/Sulfuras";
 import { ItemNames } from "@/ItemNames";
 
 describe("Gilded Rose", () => {
   // "The Quality of an item is never negative"
+
   it("should decrease sellIn and not decrease quality negatively on foo", () => {
     const gildedRose = new GildedRose([new Item("foo", 0, 0)]);
     const items = gildedRose.updateQuality();
@@ -18,6 +25,14 @@ describe("Gilded Rose", () => {
     expect(items[0].name).toBe("foo");
     expect(items[0].sellIn).toBe(-2);
     expect(items[0].quality).toBe(3);
+  });
+
+  it("should not decrease quality negatively when sellIn below 0 and quality to 1 on foo", () => {
+    const gildedRose = new GildedRose([new Item("foo", -1, 1)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].name).toBe("foo");
+    expect(items[0].sellIn).toBe(-2);
+    expect(items[0].quality).toBe(0);
   });
 
   // "Aged Brie actually increases in Quality the older it gets"
@@ -108,5 +123,74 @@ describe("Gilded Rose", () => {
     expect(items[0].name).toBe(ItemNames.Backstage);
     expect(items[0].sellIn).toBe(-1);
     expect(items[0].quality).toBe(0);
+  });
+
+  // "Conjured items degrade in Quality twice as fast as normal items"
+
+  it("should decrease sellIn and not decrease quality negatively on Conjured", () => {
+    const gildedRose = new GildedRose([new Item(ItemNames.Conjured, 0, 0)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].name).toBe(ItemNames.Conjured);
+    expect(items[0].sellIn).toBe(-1);
+    expect(items[0].quality).toBe(0);
+  });
+
+  it("should decrease quality by 2 when sellIn above 0 on Conjured", () => {
+    const gildedRose = new GildedRose([new Item(ItemNames.Conjured, 3, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].name).toBe(ItemNames.Conjured);
+    expect(items[0].sellIn).toBe(2);
+    expect(items[0].quality).toBe(8);
+  });
+
+  it("should decrease quality by 4 when sellIn below 0 on Conjured", () => {
+    const gildedRose = new GildedRose([new Item(ItemNames.Conjured, -1, 5)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].name).toBe(ItemNames.Conjured);
+    expect(items[0].sellIn).toBe(-2);
+    expect(items[0].quality).toBe(1);
+  });
+
+  it("should not decrease quality negatively when sellIn below 0 and quality to 1 on Conjured", () => {
+    const gildedRose = new GildedRose([new Item(ItemNames.Conjured, -1, 1)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].name).toBe(ItemNames.Conjured);
+    expect(items[0].sellIn).toBe(-2);
+    expect(items[0].quality).toBe(0);
+  });
+
+  // IdentifiedItemFactory
+
+  it("should create OrdinaryItem", () => {
+    const identifiedItem = IdentifiedItemFactory.create(new Item("foo", -1, 1));
+    expect(identifiedItem).toBeInstanceOf(OrdinaryItem);
+  });
+
+  it("should create AgedBrie item", () => {
+    const identifiedItem = IdentifiedItemFactory.create(
+      new Item(ItemNames.AgedBrie, -1, 1)
+    );
+    expect(identifiedItem).toBeInstanceOf(AgedBrie);
+  });
+
+  it("should create Sulfuras item", () => {
+    const identifiedItem = IdentifiedItemFactory.create(
+      new Item(ItemNames.Sulfuras, -1, 1)
+    );
+    expect(identifiedItem).toBeInstanceOf(Sulfuras);
+  });
+
+  it("should create Backstage item", () => {
+    const identifiedItem = IdentifiedItemFactory.create(
+      new Item(ItemNames.Backstage, -1, 1)
+    );
+    expect(identifiedItem).toBeInstanceOf(Backstage);
+  });
+
+  it("should create Conjured item", () => {
+    const identifiedItem = IdentifiedItemFactory.create(
+      new Item(ItemNames.Conjured, -1, 1)
+    );
+    expect(identifiedItem).toBeInstanceOf(Conjured);
   });
 });
