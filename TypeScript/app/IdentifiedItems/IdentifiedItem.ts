@@ -1,7 +1,15 @@
-import { Item } from "../gilded-rose";
+import { Item } from "../Item";
 
-export abstract class IdentifiedItem {
+export abstract class IdentifiedItem implements Item {
   private item: Item;
+
+  // name
+  get name() {
+    return this.item.name;
+  }
+  set name(value: string) {
+    this.item.name = value;
+  }
 
   // sellIn
   get sellIn() {

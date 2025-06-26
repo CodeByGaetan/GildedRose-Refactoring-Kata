@@ -1,10 +1,11 @@
-import { GildedRose, Item } from "@/gilded-rose";
+import { GildedRose } from "@/gilded-rose";
 import { IdentifiedItemFactory } from "@/IdentifiedItemFactory";
 import { AgedBrie } from "@/IdentifiedItems/AgedBrie";
 import { Backstage } from "@/IdentifiedItems/Backstage";
 import { Conjured } from "@/IdentifiedItems/Conjured";
 import { OrdinaryItem } from "@/IdentifiedItems/OrdinaryItem";
 import { Sulfuras } from "@/IdentifiedItems/Sulfuras";
+import { Item } from "@/Item";
 import { ItemNames } from "@/ItemNames";
 
 describe("Gilded Rose", () => {

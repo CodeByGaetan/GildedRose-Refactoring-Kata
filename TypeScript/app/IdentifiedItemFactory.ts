@@ -1,10 +1,10 @@
-import { Item } from "./gilded-rose";
 import { AgedBrie } from "./IdentifiedItems/AgedBrie";
 import { Backstage } from "./IdentifiedItems/Backstage";
 import { Conjured } from "./IdentifiedItems/Conjured";
 import { IdentifiedItem } from "./IdentifiedItems/IdentifiedItem";
 import { OrdinaryItem } from "./IdentifiedItems/OrdinaryItem";
 import { Sulfuras } from "./IdentifiedItems/Sulfuras";
+import { Item } from "./Item";
 import { ItemNames } from "./ItemNames";
 
 export class IdentifiedItemFactory {

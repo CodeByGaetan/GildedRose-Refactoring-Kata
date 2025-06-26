@@ -1,27 +1,17 @@
 import { IdentifiedItemFactory } from "./IdentifiedItemFactory";
-
-export class Item {
-  name: string;
-  sellIn: number;
-  quality: number;
-
-  constructor(name, sellIn, quality) {
-    this.name = name;
-    this.sellIn = sellIn;
-    this.quality = quality;
-  }
-}
+import { IdentifiedItem } from "./IdentifiedItems/IdentifiedItem";
+import { Item } from "./Item";
 
 export class GildedRose {
   items: Array<Item>;
 
   constructor(items = [] as Array<Item>) {
-    this.items = items;
+    this.items = items.map((item) => IdentifiedItemFactory.create(item));
   }
 
   updateQuality() {
     for (let item of this.items) {
-      let identifiedItem = IdentifiedItemFactory.create(item);
+      let identifiedItem = item as IdentifiedItem;
       identifiedItem.updateQuality();
     }
 
